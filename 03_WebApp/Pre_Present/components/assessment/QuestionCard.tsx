@@ -192,25 +192,6 @@ export default function QuestionCard({
                     {helper ? (
                       <p className="mt-2 text-sm leading-relaxed text-muted">{helper}</p>
                     ) : null}
-
-                    {replyOptions && replyOptions.length > 0 ? (
-                      <div
-                        className="mt-4 border-t border-indigo/20 pt-3"
-                        data-testid="interview-option-guide"
-                      >
-                        <p className="text-xs font-semibold text-indigoText">
-                          {labels.optionsIntro}
-                        </p>
-                        <ol className="mt-2 grid gap-1.5 text-xs leading-relaxed text-muted sm:grid-cols-2">
-                          {replyOptions.map((option, index) => (
-                            <li key={option} className="flex min-w-0 gap-2">
-                              <span className="font-bold text-indigoText">{index + 1}.</span>
-                              <span className="min-w-0">{option}</span>
-                            </li>
-                          ))}
-                        </ol>
-                      </div>
-                    ) : null}
                   </div>
                 </AssessmentTimelineMessage>
               </div>
@@ -232,7 +213,7 @@ export default function QuestionCard({
         </div>
 
         <div
-          className="border-t border-coral/25 bg-coral/5 p-3 sm:p-4"
+          className="border-t border-line bg-surface p-3 sm:p-4"
           data-question-id={questionId}
           data-testid="interview-composer"
         >

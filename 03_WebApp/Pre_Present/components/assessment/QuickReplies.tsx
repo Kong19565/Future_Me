@@ -50,12 +50,12 @@ export default function QuickReplies({
           disabled={disabled}
           onClick={() => onSelect(option)}
           data-testid={`quick-reply-${index + 1}`}
-          className="inline-flex min-w-0 items-center gap-1.5 rounded-full border border-indigo/40 bg-surface px-3 py-1.5 text-xs font-semibold text-ink transition hover:border-indigo hover:bg-indigo/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mint disabled:cursor-not-allowed disabled:opacity-40"
+          className="inline-flex min-w-0 items-center gap-1.5 min-h-11 rounded-full border border-line bg-surface2 px-4 py-2 text-sm font-semibold text-mint transition hover:border-mint focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mint disabled:cursor-not-allowed disabled:opacity-40"
         >
           {/* The number is kept visible so typing "3" and tapping the third
               chip are recognisably the same act, for anyone who has already
               learned the numbered list. */}
-          <span aria-hidden className="text-indigoText">
+          <span aria-hidden className="text-muted">
             {index + 1}
           </span>
           <span className="min-w-0 truncate">{option}</span>

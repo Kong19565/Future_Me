@@ -26,13 +26,13 @@ export default function ChatComposer({
 }) {
   return (
     <form
-      className="border-t border-coral/25 bg-coral/5 p-4"
+      className="border-t border-line bg-surface p-4"
       onSubmit={(event) => {
         event.preventDefault();
         onSubmit();
       }}
     >
-      <label htmlFor="chat-input" className="text-xs font-bold text-coral">
+      <label htmlFor="chat-input" className="text-xs font-bold text-muted">
         {labels.label}
       </label>
       <textarea
@@ -46,7 +46,7 @@ export default function ChatComposer({
         onChange={(event) => onChange(event.target.value)}
         placeholder={labels.placeholder}
         aria-describedby="chat-input-hint chat-input-count"
-        className="mt-2 w-full resize-y rounded-control border border-coral/35 bg-surface px-4 py-3 text-sm leading-relaxed text-ink transition placeholder:text-muted/80 hover:border-coral/60 focus:border-coral focus:ring-2 focus:ring-coral/20 disabled:cursor-not-allowed disabled:opacity-60"
+        className="mt-2 w-full resize-y rounded-control border border-line bg-surface px-4 py-3 text-sm leading-relaxed text-ink transition placeholder:text-muted/80 hover:border-muted focus:border-mint focus:ring-2 focus:ring-mint/20 disabled:cursor-not-allowed disabled:opacity-60"
       />
       <div className="mt-2 flex flex-wrap items-center justify-between gap-3">
         <div className="text-[11px] text-muted">

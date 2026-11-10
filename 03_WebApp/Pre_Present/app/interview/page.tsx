@@ -561,12 +561,6 @@ export default function InterviewPage() {
           onReset={answeredScored > 0 ? handleReset : undefined}
         />
 
-        <p className="mb-5 inline-block rounded-full border border-warning/40 bg-warning/5 px-3 py-1 text-[11px] font-bold text-warning">
-          {t.assessment.demoNotice}
-        </p>
-
-        {stepIndex === 0 ? <p className="mb-5 text-sm text-muted">{t.assessment.intro}</p> : null}
-
         {!storageOk ? (
           <div className="mb-5">
             <Notice tone="warning" title={t.assessment.storageBlockedTitle}>
@@ -649,7 +643,7 @@ export default function InterviewPage() {
                 sendingLabel={t.assessment.savingReply}
                 error={replyErrorText}
                 maxLength={composerMaxLength}
-                rows={step.kind === "context" && step.q.type === "text" ? 4 : 3}
+                rows={step.kind === "context" && step.q.type === "text" ? 4 : 1}
                 inputRef={replyRef}
               />
             </QuestionCard>
@@ -712,14 +706,20 @@ export default function InterviewPage() {
               <span className="text-xs text-muted">
                 {canContinue ? t.assessment.readyToContinue : t.assessment.answerRequired}
               </span>
-              <Button onClick={handleContinue} data-testid="interview-continue" variant="coral">
+              <Button onClick={handleContinue} data-testid="interview-continue">
                 {t.assessment.continueToMission}
               </Button>
             </div>
           </div>
         ) : null}
 
-        <p className="mt-8 text-xs text-muted">
+        {stepIndex === 0 ? <p className="mt-6 text-sm text-muted">{t.assessment.intro}</p> : null}
+
+        <p className="mt-6 inline-block rounded-full border border-warning/40 bg-warning/5 px-3 py-1 text-[11px] font-bold text-warning">
+          {t.assessment.demoNotice}
+        </p>
+
+        <p className="mt-3 text-xs text-muted">
           <strong className="text-ink">{t.assessment.howUsedTitle}</strong>{" "}
           {t.assessment.howUsedBody}
         </p>

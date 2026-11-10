@@ -77,11 +77,11 @@ export function JourneyMessage({
     >
       <div
         className={[
-          "relative min-w-0 rounded-[24px] border-2 px-4 py-4 text-sm leading-relaxed shadow-[var(--shadow-card)] sm:px-5",
+          "relative min-w-0 rounded-[20px] border px-4 py-4 text-sm leading-relaxed shadow-[var(--shadow-card)] sm:px-5",
           showAvatar ? "max-w-[calc(100%_-_2.5rem)] sm:max-w-[92%]" : "w-full max-w-full",
           assistant
-            ? `${showAvatar ? "ml-10 sm:ml-12" : ""} rounded-bl-control border-indigo/45 border-l-[3px] border-l-indigo bg-indigo/10 text-ink`
-            : "mr-10 rounded-br-control border-coral/45 border-r-[3px] border-r-coral bg-coral/10 text-ink sm:mr-12",
+            ? `${showAvatar ? "ml-10 sm:ml-12" : ""} rounded-bl-control border-line bg-surface2 text-ink`
+            : "mr-10 rounded-br-control border-me bg-me text-white sm:mr-12",
         ].join(" ")}
         data-bubble-side={assistant ? "left" : "right"}
       >
@@ -90,12 +90,12 @@ export function JourneyMessage({
           className={[
             "absolute -bottom-[9px] h-4 w-4 rotate-45 border-b-2 border-r-2",
             assistant
-              ? "left-7 border-indigo/45 bg-indigo/10"
-              : "right-7 border-coral/45 bg-coral/10",
+              ? "left-7 border-line bg-surface2"
+              : "right-7 border-me bg-me",
           ].join(" ")}
           data-tail-side={assistant ? "left" : "right"}
         />
-        <p className={`mb-2 text-[11px] font-bold ${assistant ? "text-indigoText" : "text-coral"}`}>
+        <p className={`mb-2 text-[11px] font-bold ${assistant ? "text-indigoText" : "text-white"}`}>
           {label}
         </p>
         <div className="min-w-0 break-words [overflow-wrap:anywhere]">{children}</div>

@@ -72,7 +72,7 @@ export default function AssessmentReplyComposer({
         aria-describedby={`${hintId} ${countId}${error ? ` ${errorId}` : ""}`}
         aria-invalid={error ? true : undefined}
         aria-errormessage={error ? errorId : undefined}
-        className="w-full resize-y rounded-control border border-coral/35 bg-surface px-4 py-3 text-sm leading-relaxed text-ink transition placeholder:text-muted/80 hover:border-coral/60 focus:border-coral focus:ring-2 focus:ring-coral/20 disabled:cursor-not-allowed disabled:opacity-60"
+        className="w-full resize-y rounded-control border border-line bg-surface px-4 py-3 text-sm leading-relaxed text-ink transition placeholder:text-muted/80 hover:border-muted focus:border-mint focus:ring-2 focus:ring-mint/20 disabled:cursor-not-allowed disabled:opacity-60"
       />
 
       {error ? (
@@ -94,7 +94,6 @@ export default function AssessmentReplyComposer({
         </p>
         <Button
           type="submit"
-          variant="coral"
           disabled={disabled || value.trim().length === 0}
           data-testid="assessment-send"
           className="min-w-24"

@@ -28,6 +28,7 @@ export const en = {
       compare: "Compare",
       plan: "Plan",
     },
+    phases: { answer: "Answer", try: "Try", compare: "Compare", act: "Act" },
     stepCompleted: "(completed)",
     progressLabel: "Progress",
   },
@@ -115,7 +116,11 @@ export const en = {
   },
 
   landing: {
-    heroNote: "Answer a few short questions, try one real task, then see up to three study routes — each with the evidence behind it.",
+    heroNote: "Not sure what to study next? You don't need to know yet. Let's answer, try, and see together.",
+    phaseAnswerBody: "Talk about what you like",
+    phaseTryBody: "Try a simulated task",
+    phaseCompareBody: "See routes you could really take",
+    phaseActBody: "Start a 30-day plan",
     ctaHeading: "Start with what you already know about yourself",
     tabHow: "How it works",
     tabHonest: "Straight talk",
@@ -123,11 +128,11 @@ export const en = {
     tabMoreBody: "You do not have to start with the questions. Ask something directly, or just look at what exists near you — neither needs an account or tells us anything about you.",
     nearbyButton: "What is near me",
     badge: "FUNCTIONAL PROTOTYPE · RUNNABLE END-TO-END DEMO",
-    headlineLead: "A next step you can",
-    headlineAccent: "actually explain.",
+    headlineLead: "Talk first,",
+    headlineAccent: "then choose your way.",
     subhead:
       "Answer a short interview, try one real task, then compare up to three study routes — each showing the evidence behind it and what it still does not know.",
-    startGuest: "Start as guest →",
+    startGuest: "Start talking →",
     chatButton: "Chat with FutureMe",
     whatHappens: "What happens to my answers?",
     noAccount:

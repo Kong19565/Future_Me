@@ -46,7 +46,10 @@ function Header() {
       </Link>
       <div className="flex flex-wrap items-center gap-2">
         <PreferenceControls />
-        <span className="rounded-full border border-line bg-surface px-3 py-1 text-[11px] font-semibold text-muted">
+        {/* The footer carries the same disclaimer on every page; on a phone this
+            row was pushing the actual content down. */}
+        <span className="hidden rounded-full border border-line bg-surface px-3 py-1 text-[11px] font-semibold text-muted sm:inline">
+
           {t.chrome.demoBadge}
         </span>
       </div>
@@ -56,43 +59,54 @@ function Header() {
 
 export function Steps({ current }: { current: number }) {
   const t = useT();
-  const stepLabels = [
-    t.chrome.steps.interview,
-    t.chrome.steps.mission,
-    t.chrome.steps.routes,
-    t.chrome.steps.compare,
-    t.chrome.steps.plan,
+  const phases = [
+    t.chrome.phases.answer,
+    t.chrome.phases.try,
+    t.chrome.phases.compare,
+    t.chrome.phases.act,
   ];
+  // Five screens, four things a learner is doing: routes and compare are both
+  // the act of weighing options, so they share a stop on the line.
+  const currentPhase = [0, 1, 2, 2, 3][current - 1] ?? 0;
   return (
-    <nav aria-label={t.chrome.progressLabel} className="mt-6">
-      <ol className="flex flex-wrap gap-x-2 gap-y-2 text-[11px] sm:text-xs">
-        {stepLabels.map((label, i) => {
-          const n = i + 1;
-          const state = n < current ? "done" : n === current ? "current" : "todo";
+    <nav aria-label={t.chrome.progressLabel} className="mx-auto mt-6 w-full max-w-md">
+      <ol className="grid grid-cols-4 text-xs sm:text-sm" data-testid="journey-steps">
+        {phases.map((label, i) => {
+          const state = i < currentPhase ? "done" : i === currentPhase ? "current" : "todo";
           return (
-            <li key={label} className="flex items-center gap-2">
-              <span
-                aria-current={state === "current" ? "step" : undefined}
-                className={[
-                  "flex items-center gap-1.5 rounded-full border px-2.5 py-1 font-semibold",
-                  state === "current"
-                    ? "border-mint bg-mint text-mintInk"
-                    : state === "done"
-                      ? "border-mint/40 text-mint"
-                      : "border-line text-muted",
-                ].join(" ")}
-              >
-                <span aria-hidden>{state === "done" ? "✓" : n}</span>
-                <span>{label}</span>
-                {state === "done" ? (
-                  <span className="sr-only">{t.chrome.stepCompleted}</span>
-                ) : null}
-              </span>
-              {n < stepLabels.length ? (
-                <span aria-hidden className="text-line">
-                  ›
-                </span>
+            <li
+              key={label}
+              aria-current={state === "current" ? "step" : undefined}
+              data-state={state}
+              className={[
+                "relative flex flex-col items-center gap-1",
+                state === "current"
+                  ? "font-bold text-mint"
+                  : state === "done"
+                    ? "text-ink"
+                    : "text-muted",
+              ].join(" ")}
+            >
+              {i > 0 ? (
+                <span
+                  aria-hidden
+                  className={`absolute right-1/2 top-[6px] w-full border-t-[3px] border-dashed ${
+                    i <= currentPhase ? "border-mint" : "border-line"
+                  }`}
+                />
               ) : null}
+              <span
+                aria-hidden
+                className={[
+                  "relative z-10 h-4 w-4 rounded-full border-[3px]",
+                  state === "todo"
+                    ? "border-line bg-surface"
+                    : "border-mint bg-mint",
+                  state === "current" ? "ring-4 ring-surface2" : "",
+                ].join(" ")}
+              />
+              <span>{label}</span>
+              {state === "done" ? <span className="sr-only">{t.chrome.stepCompleted}</span> : null}
             </li>
           );
         })}

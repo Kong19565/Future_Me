@@ -61,9 +61,9 @@ function Meter({ core, context }: { core: number; context: number }) {
   // small the contextual part is relative to the academic part.
   const total = core + context;
   return (
-    <div className="flex h-2 w-full overflow-hidden rounded-full bg-subtle" aria-hidden="true">
-      <div className="bg-accent" style={{ width: `${(core / total) * 100}%` }} />
-      <div className="bg-accent/40" style={{ width: `${(context / total) * 100}%` }} />
+    <div className="flex h-2 w-full overflow-hidden rounded-full bg-surface2" aria-hidden="true">
+      <div className="bg-mint" style={{ width: `${(core / total) * 100}%` }} />
+      <div className="bg-mint/40" style={{ width: `${(context / total) * 100}%` }} />
     </div>
   );
 }
@@ -90,7 +90,7 @@ function ProgrammeCard({
   const years = yearsForLevel(p.level);
   const total = living ? courseLivingCost(living, years) : null;
   return (
-    <li className="rounded-lg border border-subtle p-4">
+    <li className="rounded-card border border-line bg-surface p-4">
       <div className="flex items-baseline gap-3">
         <span className="font-mono text-sm text-muted">{rank}</span>
         <div className="min-w-0 flex-1">
@@ -113,16 +113,6 @@ function ProgrammeCard({
                 : ""}
             </p>
           )}
-          {/* How the trip is actually made. Already collected and already
-              translated; it had simply never reached a screen. */}
-          {row.travel.modes.length > 0 && (
-            <p className="mt-0.5 text-xs text-muted">
-              {t.routes.programmesModes}{" "}
-              {row.travel.modes
-                .map((m) => (t.nearby.modes as Record<string, string>)[m] ?? m)
-                .join(" · ")}
-            </p>
-          )}
         </div>
         {/*
           The interest x efficacy quadrant is shown only when efficacy was
@@ -132,7 +122,7 @@ function ProgrammeCard({
           to ignore the chip.
         */}
         {row.quadrant !== "unknown-efficacy" && (
-          <span className="whitespace-nowrap rounded-full bg-subtle px-2 py-0.5 text-xs">
+          <span className="whitespace-nowrap rounded-full bg-surface2 px-2 py-0.5 text-xs">
             {quadrantLabel(row.quadrant, t)}
           </span>
         )}
@@ -160,21 +150,8 @@ function ProgrammeCard({
         )}
       </p>
 
-      {/*
-        The occupations the field's vector was averaged from, in Thai. This is
-        the crosswalk shown to the learner rather than only to a reviewer: it
-        is both the most concrete thing on the card and the evidence for the
-        number beside it.
-      */}
-      {p.occupations.length > 0 && (
-        <p className="mt-2 text-xs">
-          <span className="text-muted">{t.routes.programmesOccupations}</span>{" "}
-          {p.occupations.join(" · ")}
-        </p>
-      )}
-
       {p.outcome && (
-        <div className="mt-2 rounded border border-subtle bg-subtle/40 px-2.5 py-1.5 text-xs">
+        <div className="mt-2 rounded border border-line bg-surface2 px-2.5 py-1.5 text-xs">
           <p>
             {format(t.routes.programmesOutcome, {
               province: p.provinceTh,
@@ -210,17 +187,8 @@ function ProgrammeCard({
         </p>
       )}
 
-      {p.productionCost !== null && (
-        <p className="mt-2 text-xs text-muted">
-          {format(t.routes.programmesCost, {
-            baht: p.productionCost.toLocaleString("th-TH"),
-          })}
-        </p>
-      )}
-
       <div className="mt-3">
-        <Meter core={row.core} context={row.contextComponent} />
-        <dl className="mt-2 flex flex-wrap gap-x-5 gap-y-1 text-xs">
+        <dl className="flex flex-wrap gap-x-5 gap-y-1 text-xs">
           <div className="flex gap-1.5">
             <dt className="text-muted">{t.routes.programmesCore}</dt>
             <dd className="font-mono font-bold tabular-nums">{row.core.toFixed(1)}</dd>
@@ -239,18 +207,39 @@ function ProgrammeCard({
         </dl>
       </div>
 
-      {/*
-        Directive 3 from the Kong19565 PR: show where each figure came from.
-        These are our own registers, named per field rather than as one badge
-        on the card — a single badge would imply the whole card shares one
-        source, and the distance, the intake and the employment survey do not.
-      */}
-      <p className="mt-2 text-[10px] leading-relaxed text-muted">
-        {t.routes.programmesProvenance}
-      </p>
-
       <details className="mt-3">
         <summary className="cursor-pointer text-xs text-muted">{t.routes.programmesWhy}</summary>
+        {/*
+          Nothing here was removed from the card, only folded: the list was five
+          screens of small print before a learner could compare two courses.
+        */}
+        <div className="mt-2 space-y-2 text-xs">
+          <Meter core={row.core} context={row.contextComponent} />
+          {row.travel.modes.length > 0 && (
+            <p className="text-muted">
+              {t.routes.programmesModes}{" "}
+              {row.travel.modes
+                .map((m) => (t.nearby.modes as Record<string, string>)[m] ?? m)
+                .join(" · ")}
+            </p>
+          )}
+          {p.occupations.length > 0 && (
+            <p>
+              <span className="text-muted">{t.routes.programmesOccupations}</span>{" "}
+              {p.occupations.join(" · ")}
+            </p>
+          )}
+          {p.productionCost !== null && (
+            <p className="text-muted">
+              {format(t.routes.programmesCost, {
+                baht: p.productionCost.toLocaleString("th-TH"),
+              })}
+            </p>
+          )}
+          {/* Named per field: the distance, the intake and the employment
+              survey do not share one source. */}
+          <p className="text-[10px] leading-relaxed text-muted">{t.routes.programmesProvenance}</p>
+        </div>
         <div className="mt-2 space-y-1 font-mono text-xs text-muted">
           <p>{p.level} · cos(profile, programme) = {row.congruence.toFixed(3)}</p>
           {/* Thin fields are common enough to matter: a vector averaged from
@@ -315,7 +304,7 @@ export function ProgrammeMatches({
 
   if (!result.confidentEnough) {
     return (
-      <section className="mt-8 rounded-lg border border-subtle bg-subtle/40 p-5" data-testid="programmes-declined">
+      <section className="mt-8 rounded-lg border border-line bg-surface2 p-5" data-testid="programmes-declined">
         <h3 className="font-bold">{t.routes.programmesDeclineTitle}</h3>
         <ul className="mt-2 space-y-1 text-sm text-muted">
           {result.blockers.includes("LOW_CONFIDENCE") && (
@@ -340,7 +329,7 @@ export function ProgrammeMatches({
   const chip = (active: boolean) =>
     [
       "rounded-full border px-2.5 py-1 text-xs",
-      active ? "border-accent bg-accent/10 font-bold" : "border-subtle text-muted",
+      active ? "border-mint bg-mint/10 font-bold" : "border-line text-muted",
     ].join(" ");
 
   return (
@@ -350,7 +339,7 @@ export function ProgrammeMatches({
         {format(t.routes.programmesIntro, { cap: CONTEXT_MAX })}
       </p>
 
-      <div className="mt-4 rounded-lg border border-subtle p-4">
+      <div className="mt-4 rounded-lg border border-line p-4">
         <h4 className="text-sm font-bold">{t.routes.programmesFieldsTitle}</h4>
         <p className="mt-0.5 text-xs text-muted">{t.routes.programmesFieldsNote}</p>
         <ul className="mt-3 space-y-1.5">
@@ -381,7 +370,7 @@ export function ProgrammeMatches({
             {value === "all" ? t.routes.programmesFilterAll : value}
           </button>
         ))}
-        <span className="mx-1 h-4 w-px bg-subtle" aria-hidden="true" />
+        <span className="mx-1 h-4 w-px bg-surface2" aria-hidden="true" />
         {(["all", "public", "private"] as const).map((value) => (
           <button key={value} type="button" onClick={() => setSector(value)}
                   className={chip(sector === value)}>
@@ -394,7 +383,7 @@ export function ProgrammeMatches({
         ))}
         {provinceIso && (
           <>
-            <span className="mx-1 h-4 w-px bg-subtle" aria-hidden="true" />
+            <span className="mx-1 h-4 w-px bg-surface2" aria-hidden="true" />
             <button type="button" onClick={() => setHomeOnly((v) => !v)}
                     className={chip(homeOnly)}>
               {t.routes.programmesFilterProvince}
@@ -410,7 +399,7 @@ export function ProgrammeMatches({
       </div>
 
       {shown.length === 0 && (
-        <p className="mt-4 rounded border border-subtle bg-subtle/40 p-4 text-sm text-muted">
+        <p className="mt-4 rounded border border-line bg-surface2 p-4 text-sm text-muted">
           {t.routes.programmesNoneAfterFilter}
         </p>
       )}

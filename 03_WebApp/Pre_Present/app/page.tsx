@@ -45,54 +45,67 @@ export default function Home() {
 
   return (
     <Shell>
-      <section className="flex flex-col items-center pt-2 text-center">
-        <p className="inline-flex items-center gap-2 rounded-full border border-line bg-surface px-3 py-1 text-[11px] font-bold tracking-wide text-muted">
-          <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-mint" />
-          {t.landing.badge}
-        </p>
-
-        {/*
-          The character at the size it was drawn to be read at. It was 96px in a
-          corner, which is a favicon rather than a face. Decorative still — the
-          heading below says what this is, and a screen reader does not need it
-          twice.
-
-          The component writes its width inline, so the responsive sizes need
-          `!` to win.
-        */}
-        <div data-testid="landing-mascot" className="mt-4">
-          <FutureMeMascot
-            emotion="smile"
-            pose="wave"
-            crop="full"
-            size={300}
-            animated
-            className="!w-[180px] sm:!w-[240px] lg:!w-[300px]"
-          />
+      <section className="grid gap-6 pt-2 lg:grid-cols-2 lg:gap-x-12 lg:pt-8">
+        <div className="lg:col-start-1 lg:row-start-1">
+          <h1 className="text-4xl font-bold leading-tight sm:text-5xl">
+            {t.landing.headlineLead}
+            <br />
+            <span className="bg-gradient-to-r from-indigo via-magenta to-coral bg-clip-text text-transparent">
+              {t.landing.headlineAccent}
+            </span>
+          </h1>
+          <p className="mt-5 w-fit max-w-md rounded-[20px] rounded-bl-md border border-line bg-surface2 px-4 py-3 text-base leading-relaxed">
+            {t.landing.heroNote}
+          </p>
         </div>
 
-        <h1 className="mt-4 max-w-3xl text-3xl font-bold leading-tight sm:text-5xl">
-          {t.landing.headlineLead}{" "}
-          <span className="bg-gradient-to-r from-indigo via-magenta to-coral bg-clip-text text-transparent">
-            {t.landing.headlineAccent}
-          </span>
-        </h1>
-
-        <p className="mt-3 max-w-xl text-base text-muted">{t.landing.heroNote}</p>
+        {/*
+          The whole journey on one dashed line, next to the character. Decorative
+          mascot still — the heading says what this is, and a screen reader does
+          not need it twice. The component writes its width inline, so the
+          responsive sizes need `!` to win.
+        */}
+        <div className="flex items-end justify-between gap-2 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:items-center">
+          <ol className="flex flex-col gap-4 border-l-[3px] border-dashed border-mint pl-5 sm:gap-6">
+            {[
+              [t.chrome.phases.answer, t.landing.phaseAnswerBody],
+              [t.chrome.phases.try, t.landing.phaseTryBody],
+              [t.chrome.phases.compare, t.landing.phaseCompareBody],
+              [t.chrome.phases.act, t.landing.phaseActBody],
+            ].map(([title, body]) => (
+              <li key={title}>
+                <p className="text-lg font-bold">{title}</p>
+                <p className="text-sm text-muted">{body}</p>
+              </li>
+            ))}
+          </ol>
+          <div data-testid="landing-mascot" className="shrink-0">
+            <FutureMeMascot
+              emotion="smile"
+              pose="wave"
+              crop="full"
+              size={300}
+              animated
+              className="!w-[172px] sm:!w-[240px] lg:!w-[280px]"
+            />
+          </div>
+        </div>
 
         {/*
           One action, named. The other three ways in are links rather than
           buttons of equal weight — four buttons side by side asked a learner to
           choose before they knew what any of them were.
         */}
-        <h2 className="mt-6 text-sm font-bold text-muted">{t.landing.ctaHeading}</h2>
-        <div className="mt-3">
-          <Button href="/interview" data-testid="start-guest">
+        <div className="lg:col-start-1 lg:row-start-2">
+          <Button
+            href="/interview"
+            data-testid="start-guest"
+            className="w-full !py-4 text-lg lg:w-auto lg:px-10"
+          >
             {t.landing.startGuest}
           </Button>
+          <p className="mt-3 max-w-xl text-xs text-muted">{t.landing.noAccount}</p>
         </div>
-
-        <p className="mt-4 max-w-xl text-xs text-muted">{t.landing.noAccount}</p>
       </section>
 
       <section className="mt-10">

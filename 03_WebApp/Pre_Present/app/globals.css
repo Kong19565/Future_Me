@@ -25,12 +25,16 @@
 :root[data-theme="light"] {
   color-scheme: light;
 
-  --canvas: 246 246 250;
+  /*
+   * Lavender neutrals, on the same blue-violet hue family as the dark theme, so
+   * the two modes read as one product. Only lightness moves between them.
+   */
+  --canvas: 250 247 252;
   --surface: 255 255 255;
-  --surface2: 239 239 245;
-  --line: 222 222 232;
-  --ink: 22 22 31;
-  --muted: 85 85 110;
+  --surface2: 240 235 247;
+  --line: 224 217 236;
+  --ink: 29 26 43;
+  --muted: 92 86 112;
 
   --indigo: 85 70 214;
   --indigo-text: 79 63 209;
@@ -41,6 +45,9 @@
   --mint: 11 122 99;
   --mint-ink: 255 255 255;
   --warning: 138 90 0;
+
+  /* Not theme-dependent, so the dark block does not redefine it. */
+  --me: 85 70 214;
 
   --shadow-card: 0 1px 2px rgb(22 22 31 / 0.04), 0 12px 32px -20px rgb(22 22 31 / 0.28);
   --shadow-selected: 0 0 0 1px rgb(11 122 99 / 0.45);
@@ -83,7 +90,8 @@ body {
   background:
     radial-gradient(60% 60% at 12% 0%, rgb(var(--indigo) / 0.28), transparent 70%),
     radial-gradient(50% 50% at 88% 8%, rgb(var(--mint) / 0.14), transparent 70%),
-    radial-gradient(60% 60% at 50% 100%, rgb(var(--magenta) / 0.16), transparent 70%);
+    radial-gradient(60% 60% at 50% 100%, rgb(var(--magenta) / 0.16), transparent 70%),
+    rgb(var(--canvas));
 }
 
 /* On white the same gradient reads as dirt rather than atmosphere. */
@@ -91,7 +99,8 @@ body {
   background:
     radial-gradient(60% 60% at 12% 0%, rgb(var(--indigo) / 0.07), transparent 70%),
     radial-gradient(50% 50% at 88% 8%, rgb(var(--mint) / 0.05), transparent 70%),
-    radial-gradient(60% 60% at 50% 100%, rgb(var(--magenta) / 0.05), transparent 70%);
+    radial-gradient(60% 60% at 50% 100%, rgb(var(--magenta) / 0.05), transparent 70%),
+    rgb(var(--canvas));
 }
 
 /* Visible focus ring for keyboard users, on every interactive element. */

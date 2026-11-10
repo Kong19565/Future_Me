@@ -303,14 +303,17 @@ export default function RoutesPage() {
       </div>
 
       {/* Equal weight by construction: same grid cell, same card, same actions. */}
-      <ul className="space-y-6" data-testid="route-options">
+      <ul
+        className="space-y-5 border-l-[3px] border-dashed border-mint pl-3 sm:pl-5"
+        data-testid="route-options"
+      >
         {result.routes.map((route) => (
           <li
             key={route.routeId}
             data-route-id={route.routeId}
             data-testid={`route-option-${route.routeId}`}
           >
-            <JourneyMessage role="assistant" label={t.assessment.interviewerName}>
+            <JourneyMessage role="assistant" label={t.assessment.interviewerName} showAvatar={false}>
               <RouteCard
                 route={route}
                 llmAvailable={llmAvailable}
@@ -532,7 +535,8 @@ function RouteCard({
   const panelId = `route-detail-${route.routeId}`;
 
   return (
-    <Card className="flex flex-col border-indigo/25 bg-surface/80">
+    // Already inside a chat bubble: a second border and fill here is a box in a box.
+    <Card className="flex flex-col !border-0 !bg-transparent !p-0">
       {/* Identity */}
       <h2 className="text-base font-bold leading-snug">{localised(route.name, lang)}</h2>
       {localised(route.shortName, lang) !== localised(route.name, lang) ? (

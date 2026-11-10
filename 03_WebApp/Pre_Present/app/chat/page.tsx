@@ -430,7 +430,7 @@ export default function ChatPage() {
                   data-testid="chat-thinking-row"
                 >
                   <div className="relative ml-10 max-w-[calc(100%_-_2.5rem)] rounded-[24px] rounded-bl-control border-2 border-indigo/45 border-l-[3px] border-l-indigo bg-indigo/10 px-4 py-3 text-sm text-muted shadow-[var(--shadow-card)] sm:ml-12 sm:max-w-[82%]">
-                    <span className="absolute -bottom-[9px] left-7 h-4 w-4 rotate-45 border-b-2 border-r-2 border-indigo/45 bg-indigo/10" />
+                    <span className="absolute -bottom-[9px] left-7 h-4 w-4 rotate-45 border-b-2 border-r-2 border-line bg-surface2" />
                     <span aria-hidden className="mr-2 inline-block motion-safe:animate-pulse">
                       ●●●
                     </span>

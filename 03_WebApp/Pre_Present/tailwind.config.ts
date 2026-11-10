@@ -31,6 +31,8 @@ const config: Config = {
         indigoText: token("indigo-text"),
         magenta: token("magenta"),
         coral: token("coral"),
+        /** User chat bubble: white text on it passes 4.5:1 in both themes. */
+        me: token("me"),
         mint: token("mint"),
         mintInk: token("mint-ink"),
         warning: token("warning"),
