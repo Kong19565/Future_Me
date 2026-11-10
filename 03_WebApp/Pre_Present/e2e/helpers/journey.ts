@@ -12,8 +12,16 @@ import questions from "../../data/questions.json";
 /**
  * Item ids come from the bank, not from literals. The instrument is expected to
  * change as it is revised; the journey it drives is not.
+ *
+ * The interview asks the self-efficacy items straight after the interest items,
+ * in one list (see INTEREST_QUESTIONS in app/interview/page.tsx). Leaving them
+ * out here made every "answer everything" loop end six questions early, so the
+ * context replies landed on self-efficacy items and review was never reached.
  */
-export const ITEMS = questions.interest.map((q) => ({ id: q.id, dimension: q.dimension }));
+export const ITEMS = [...questions.interest, ...(questions.efficacy ?? [])].map((q) => ({
+  id: q.id,
+  dimension: q.dimension,
+}));
 
 /**
  * The assessment is a text conversation. These helpers use the same red user

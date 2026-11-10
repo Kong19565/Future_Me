@@ -1,5 +1,6 @@
 import { expect, test, type Page } from "@playwright/test";
 import questions from "../data/questions.json";
+import { ITEMS } from "./helpers/journey";
 
 /**
  * Answering by tapping.
@@ -69,7 +70,8 @@ test("the chips follow the language the learner reads", async ({ page }) => {
 
 test("the situation questions get their own options, not the interest scale", async ({ page }) => {
   await page.goto("/interview");
-  for (const item of questions.interest) {
+  // Every scale item, interest then self-efficacy, in the order the page asks them.
+  for (const item of ITEMS) {
     void item;
     await page.getByTestId("quick-reply-4").click();
   }
@@ -83,7 +85,8 @@ test("the situation questions get their own options, not the interest scale", as
 
 test("the optional free-text question offers no chips to tap", async ({ page }) => {
   await page.goto("/interview");
-  for (const item of questions.interest) {
+  // Every scale item, interest then self-efficacy, in the order the page asks them.
+  for (const item of ITEMS) {
     void item;
     await page.getByTestId("quick-reply-4").click();
   }
